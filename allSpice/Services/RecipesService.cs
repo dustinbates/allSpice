@@ -30,6 +30,15 @@ namespace allSpice.Services
       return recipe;
     }
 
+    internal string Remove(int id)
+    {
+      Recipe recipe = _repo.GetOne(id);
+      bool result = _repo.Remove(id);
+      if(!result) throw new Exception($"removing this recipe at id {recipe.Id} failed");
+      return "removed recipe";
+
+    }
+
     internal Recipe UpdateRecipe(Recipe updateData, string userId)
     {
       Recipe original = this.Get(updateData.Id, userId);

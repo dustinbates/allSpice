@@ -78,6 +78,20 @@ namespace allSpice.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        public ActionResult<string> Remove(int id)
+        {
+            try 
+            {
+              string message = _recipesService.Remove(id);
+              return Ok(message);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
 
     }
 }
