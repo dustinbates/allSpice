@@ -66,7 +66,7 @@ WHERE recipeId = 1;
 
 -- SECTION favorites
 CREATE TABLE favorites(
-  id VARCHAR(255) NOT NULL PRIMARY KEY,
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   accountId VARCHAR(255) NOT NULL COMMENT 'Account Id',
   recipeId INT NOT NULL COMMENT 'Recipe Id',
 
