@@ -7,11 +7,14 @@ namespace allSpice.Controllers
         private readonly RecipesService _recipesService;
         private readonly Auth0Provider _auth;
 
+        private readonly IngredientsService _ingredientsService;
 
-        public RecipesController(RecipesService recipesService, Auth0Provider auth)
+
+        public RecipesController(RecipesService recipesService, Auth0Provider auth, IngredientsService ingredientsService)
         {
             _recipesService = recipesService;
             _auth = auth;
+            _ingredientsService = ingredientsService;
         }
 
         [HttpPost]
@@ -55,6 +58,20 @@ namespace allSpice.Controllers
               Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
               Recipe recipe = _recipesService.Get(id, userInfo.Id);
               return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{id}/ingredients")]
+        public ActionResult<List<Ingredient>> GetIngredientById(int id)
+        {
+            try 
+            {
+              List<Ingredient> ingredients = _ingredientsService.GetByRecipe(id);
+              return ingredients;
             }
             catch (Exception e)
             {
