@@ -18,7 +18,7 @@ namespace allSpice.Services
     internal List<Recipe> Get(string userId)
     {
       List<Recipe> recipes = _repo.GetAll();
-      recipes = recipes.FindAll(r => r.CreatorId == userId);
+      // recipes = recipes.FindAll(r => r.CreatorId == userId);
       return recipes;
     }
 
