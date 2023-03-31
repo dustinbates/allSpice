@@ -3,7 +3,7 @@
     <div class="container header">
       <div class="row">
         <div
-          class="col-4 offset-4 text-light text-center d-flex justify-content-center align-items-center text-shadow pt-5">
+          class="col-4 offset-4 text-light text-center d-flex justify-content-center align-items-center text-shadow pt-3 pb-3">
           <p class="fs-1 mt-5">All-Spice
           <p class="fs-5 m-0">Cherish your family</p>
           <p class="fs-5 m-0">And their cooking</p>
@@ -13,13 +13,16 @@
           <Login />
         </div>
       </div>
-
     </div>
   </header>
   <main>
     <router-view />
   </main>
-  <footer>
+  <footer class="sticky-bottom">
+    <button v-if="account.id" type="button" class="btn btn-success btn-lg rounded-pill" data-bs-toggle="modal"
+      data-bs-target="#createRecipe" title="create recipe">
+      <i class="mdi mdi-plus fs-1"></i>
+    </button>
   </footer>
 </template>
 
@@ -32,6 +35,7 @@ import Navbar from './components/Navbar.vue'
 export default {
   setup() {
     return {
+      account: computed(() => AppState.account),
       appState: computed(() => AppState)
     }
   },
@@ -47,7 +51,7 @@ export default {
 
 .header {
   background-image: url(../src/assets/img/header.jpeg);
-  height: 35vh;
+  min-height: 30vh;
   min-width: 98vw;
   background-size: cover;
   background-position-y: 17%;
@@ -62,7 +66,8 @@ export default {
 
 footer {
   display: grid;
-  place-content: center;
+  place-content: end;
+  margin: 15px;
   height: 32px;
 }
 </style>

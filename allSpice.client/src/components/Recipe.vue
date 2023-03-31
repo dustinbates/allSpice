@@ -1,5 +1,6 @@
 <template>
-  <div class="row">
+  <div class="row" @click="setActiveRecipe(recipe.id), getRecipeIngredients(recipe.id)" data-bs-toggle="modal"
+    data-bs-target="#activeRecipe">
     <div class="col-12 recipeCard">
       <img :src="recipe.img" alt="">
       <div class="overlayTop">
@@ -20,6 +21,9 @@
 import { Recipe } from '../models/Recipe';
 import { computed } from 'vue';
 import { AppState } from '../AppState';
+import { recipesService } from '../services/RecipesService';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
   props: {
@@ -27,7 +31,19 @@ export default {
   },
   setup() {
     return {
-      recipes: computed(() => AppState.recipes)
+      recipes: computed(() => AppState.recipes),
+      activeRecipe: computed(() => AppState.activeRecipe),
+      setActiveRecipe(recipeId) {
+        recipesService.setActiveRecipe(recipeId)
+      },
+      async getRecipeIngredients(recipeId) {
+        try {
+          await recipesService.getRecipeIngredients(recipeId)
+        } catch (error) {
+          logger.error(error.message)
+          Pop.error(error)
+        }
+      }
     }
   }
 }

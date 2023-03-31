@@ -7,6 +7,12 @@
         </div>
       </div>
     </div>
+    <Modal id="createRecipe">
+      <RecipeForm />
+    </Modal>
+    <Modal id="activeRecipe">
+      <ActiveRecipe />
+    </Modal>
   </div>
 </template>
 

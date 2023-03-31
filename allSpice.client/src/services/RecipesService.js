@@ -12,7 +12,22 @@ class RecipesService{
     AppState.recipes = recipes
   }
 
+  setActiveRecipe(recipeId){
+    AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
+    logger.log('[Setting Recipe]', AppState.activeRecipe)
+  }
 
+  async getRecipeIngredients(recipeId){
+    const res = await api.get(`api/recipes/${recipeId}/ingredients`)
+    logger.log('[Getting Ingredients]', res.data)
+    AppState.ingredients = res.data
+  }
+
+  async createRecipe(recipeData){
+    const res = await api.post('api/recipes', recipeData)
+    logger.log('[Created Recipe]', res.data)
+    AppState.recipes.push(res.data)
+  }
 
 
 }
